@@ -1,6 +1,6 @@
 ﻿namespace QuantumLeap.Models
 {
-    public class CreateLeepeeRequest
+    public class CreateLeapeeRequest
     {
         public string Name { get; set; }
     }

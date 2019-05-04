@@ -33,7 +33,7 @@ namespace QuantumLeap.Controllers
         {
             var newLeaper = _leaperRepository.AddLeaper(createRequest.Name, createRequest.Budget);
 
-            return Created($"api/users/{newLeaper.Id}", newLeaper);
+            return Created($"api/leapers/{newLeaper.Id}", newLeaper);
         }
 
         [HttpDelete("{id}")]

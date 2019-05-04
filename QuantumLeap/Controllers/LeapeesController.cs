@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuantumLeap.Data;
+using QuantumLeap.Models;
 
 namespace QuantumLeap.Controllers
 {
@@ -25,6 +26,14 @@ namespace QuantumLeap.Controllers
             var leapees = _leapeeRepository.GetLeapees();
 
             return Ok(leapees);
+        }
+
+        [HttpPost]
+        public ActionResult CreateLeapee(CreateLeapeeRequest createRequest)
+        {
+            var newLeapee = _leapeeRepository.AddLeapee(createRequest.Name);
+
+            return Created($"api/leapees/{newLeapee.Id}", newLeapee);
         }
     }
 }
