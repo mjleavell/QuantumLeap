@@ -16,12 +16,43 @@ namespace QuantumLeap.Data
         {
             using (var db = new SqlConnection(ConnectionString))
             {
-                var sqlQuery = "SELECT * FROM Leapers";
+                var sqlQuery = "SELECT id, name, budget FROM Leapers";
 
-                var leapers = db.Query<Leaper>(sqlQuery);
+                var leapers = db.Query<Leaper>(sqlQuery).ToList();
 
                 return leapers;
             }
+        }
+
+        public Leaper AddLeaper(string name, decimal budget)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var leaperRepo = new LeaperRepository();
+
+                var insertQuery = @"
+                    INSERT INTO [dbo].[Leapers]
+                               ([Name]
+                               ,[Budget])
+                    OUTPUT inserted.*
+                         VALUES
+                               (@name
+                               ,@budget)";
+
+                var parameters = new
+                {
+                    Name = name,
+                    Budget = budget,
+                };
+
+                var newLeaper = db.QueryFirstOrDefault<Leaper>(insertQuery, parameters);
+
+                if (newLeaper != null)
+                {
+                    return newLeaper;
+                }
+            }
+            throw new Exception("Leaper was not created");
         }
     }
 }
