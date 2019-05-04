@@ -41,5 +41,13 @@ namespace QuantumLeap.Controllers
             _leaperRepository.DeleteLeaper(id);
             return Ok();
         }
+
+        [HttpPut("{id}")]
+        //[HttpPut]
+        public ActionResult UpdateLeaper(Leaper leaperToUpdate)
+        {
+            var updatedLeaper = _leaperRepository.UpdateLeaper(leaperToUpdate);
+            return Ok(updatedLeaper);
+        }
     }
 }

@@ -55,6 +55,24 @@ namespace QuantumLeap.Data
             throw new Exception("Leaper was not created");
         }
 
+        public Leaper UpdateLeaper(Leaper leaperToUpdate)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var updateQuery = @"
+                            UPDATE Leapers
+                            SET Name = @name,
+                                Budget = @budget
+                            WHERE id = @id";
+
+                var rowsAffected = db.Execute(updateQuery, leaperToUpdate);
+
+                if (rowsAffected == 1)
+                    return leaperToUpdate;
+            }
+            throw new Exception("Could not update leaper");
+        }
+
         public void DeleteLeaper(int leaperId)
         {
             using (var db = new SqlConnection(ConnectionString))
@@ -67,7 +85,7 @@ namespace QuantumLeap.Data
 
                 if (rowsAffected != 1)
                 {
-                    throw new Exception("User was not deleted");
+                    throw new Exception("Leaper was not deleted");
                 }
             }
         }
