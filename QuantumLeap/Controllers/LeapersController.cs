@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuantumLeap.Data;
+using QuantumLeap.Models;
 
 namespace QuantumLeap.Controllers
 {
@@ -24,6 +25,29 @@ namespace QuantumLeap.Controllers
         {
             var allLeapers = _leaperRepository.GetLeapers();
             return Ok(allLeapers);
+        }
+
+        [HttpPost]
+        public ActionResult CreateLeaper(CreateLeaperRequest createRequest)
+        {
+            var newLeaper = _leaperRepository.AddLeaper(createRequest.Name, createRequest.Budget);
+
+            return Created($"api/users/{newLeaper.Id}", newLeaper);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteLeaper(int id)
+        {
+            _leaperRepository.DeleteLeaper(id);
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        //[HttpPut]
+        public ActionResult UpdateLeaper(Leaper leaperToUpdate)
+        {
+            var updatedLeaper = _leaperRepository.UpdateLeaper(leaperToUpdate);
+            return Ok(updatedLeaper);
         }
     }
 }
