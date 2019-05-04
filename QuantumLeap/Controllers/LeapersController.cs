@@ -34,5 +34,12 @@ namespace QuantumLeap.Controllers
 
             return Created($"api/users/{newLeaper.Id}", newLeaper);
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteLeaper(int id)
+        {
+            _leaperRepository.DeleteLeaper(id);
+            return Ok();
+        }
     }
 }

@@ -54,5 +54,22 @@ namespace QuantumLeap.Data
             }
             throw new Exception("Leaper was not created");
         }
+
+        public void DeleteLeaper(int leaperId)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var parameter = new { Id = leaperId };
+
+                var deleteQuery = "DELETE From Leapers WHERE Id = @id";
+
+                var rowsAffected = db.Execute(deleteQuery, parameter);
+
+                if (rowsAffected != 1)
+                {
+                    throw new Exception("User was not deleted");
+                }
+            }
+        }
     }
 }
