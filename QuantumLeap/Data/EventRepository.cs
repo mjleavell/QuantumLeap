@@ -23,5 +23,38 @@ namespace QuantumLeap.Data
             }
         }
 
+        public Event AddEvent(string name, DateTime eventDate, bool isCorrected)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var eventRepo = new EventRepository();
+
+                var insertQuery = @"
+                    INSERT INTO [dbo].[Events]
+                                ([Name]
+                                ,[EventDate]
+                                ,[IsCorrected])
+                    OUTPUT inserted.*
+                            VALUES
+                                (@name
+                                ,@eventDate
+                                ,@isCorrected)";
+
+                var parameters = new
+                {
+                    Name = name,
+                    EventDate = eventDate,
+                    IsCorrected = isCorrected
+                };
+
+                var newEvent = db.QueryFirstOrDefault<Event>(insertQuery, parameters);
+
+                if (newEvent != null)
+                {
+                    return newEvent;
+                }
+            }
+            throw new Exception("Event was not created");
+        }
     }
 }
