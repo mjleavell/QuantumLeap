@@ -51,5 +51,22 @@ namespace QuantumLeap.Data
             }
             throw new Exception("Leapee was not created");
         }
+
+        public Leapee UpdateLeapee(Leapee leapeeToUpdate)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var updateQuery = @"
+                            UPDATE Leapees
+                            SET Name = @name
+                            WHERE id = @id";
+
+                var rowsAffected = db.Execute(updateQuery, leapeeToUpdate);
+
+                if (rowsAffected == 1)
+                    return leapeeToUpdate;
+            }
+            throw new Exception("Could not update leapee");
+        }
     }
 }

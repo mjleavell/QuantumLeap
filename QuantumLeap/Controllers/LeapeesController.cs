@@ -35,5 +35,13 @@ namespace QuantumLeap.Controllers
 
             return Created($"api/leapees/{newLeapee.Id}", newLeapee);
         }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateLeapee(Leapee leapeeToUpdate)
+        {
+            var updatedLeapee = _leapeeRepository.UpdateLeapee(leapeeToUpdate);
+
+            return Ok(updatedLeapee);
+        }
     }
 }
