@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Dapper;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace QuantumLeap.Data
 {

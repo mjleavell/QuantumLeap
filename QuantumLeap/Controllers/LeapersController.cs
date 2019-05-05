@@ -24,6 +24,7 @@ namespace QuantumLeap.Controllers
         public ActionResult GetLeapers()
         {
             var allLeapers = _leaperRepository.GetLeapers();
+
             return Ok(allLeapers);
         }
 
@@ -32,21 +33,22 @@ namespace QuantumLeap.Controllers
         {
             var newLeaper = _leaperRepository.AddLeaper(createRequest.Name, createRequest.Budget);
 
-            return Created($"api/users/{newLeaper.Id}", newLeaper);
+            return Created($"api/leapers/{newLeaper.Id}", newLeaper);
         }
 
         [HttpDelete("{id}")]
         public ActionResult DeleteLeaper(int id)
         {
             _leaperRepository.DeleteLeaper(id);
+
             return Ok();
         }
 
         [HttpPut("{id}")]
-        //[HttpPut]
         public ActionResult UpdateLeaper(Leaper leaperToUpdate)
         {
             var updatedLeaper = _leaperRepository.UpdateLeaper(leaperToUpdate);
+
             return Ok(updatedLeaper);
         }
     }
