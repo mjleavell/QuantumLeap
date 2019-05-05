@@ -57,6 +57,25 @@ namespace QuantumLeap.Data
             throw new Exception("Event was not created");
         }
 
+        public Event UpdateEvent(Event eventToUpdate)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var updateQuery = @"
+                            UPDATE Events
+                            SET Name = @name,
+                                EventDate = @eventDate,
+                                IsCorrected = @isCorrected
+                            WHERE id = @id";
+
+                var rowsAffected = db.Execute(updateQuery, eventToUpdate);
+
+                if (rowsAffected == 1)
+                    return eventToUpdate;
+            }
+            throw new Exception("Could not update event");
+        }
+
         public void DeleteEvent(int eventId)
         {
             using (var db = new SqlConnection(ConnectionString))
@@ -73,5 +92,6 @@ namespace QuantumLeap.Data
                 }
             }
         }
+
     }
 }
