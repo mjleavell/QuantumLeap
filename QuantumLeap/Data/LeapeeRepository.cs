@@ -23,7 +23,6 @@ namespace QuantumLeap.Data
             }
         }
 
-
         public Leapee AddLeapee(string name)
         {
             using (var db = new SqlConnection(ConnectionString))
