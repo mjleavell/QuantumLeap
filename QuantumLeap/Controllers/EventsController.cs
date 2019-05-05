@@ -35,5 +35,13 @@ namespace QuantumLeap.Controllers
 
             return Created($"api/events/{newEvent.Id}", newEvent);
         }
+
+        [HttpDelete("{eventId}")]
+        public ActionResult DeleteEvent(int eventId)
+        {
+            _eventRepository.DeleteEvent(eventId);
+
+            return Ok();
+        }
     }
 }
