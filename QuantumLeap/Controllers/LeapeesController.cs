@@ -43,5 +43,13 @@ namespace QuantumLeap.Controllers
 
             return Ok(updatedLeapee);
         }
+
+        [HttpDelete("{leapeeId}")]
+        public ActionResult DeleteLeapee(int leapeeId)
+        {
+            _leapeeRepository.DeleteLeapee(leapeeId);
+
+            return Ok();
+        }
     }
 }
