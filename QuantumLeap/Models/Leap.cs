@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace QuantumLeap.Models
 {
-    public class LeapEvent
+    public class Leap
     {
         public int Id { get; set; }
         public int LeapeeEventId { get; set; }
