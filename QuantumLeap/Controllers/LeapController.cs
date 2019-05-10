@@ -9,7 +9,7 @@ namespace QuantumLeap.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LeapEventsController : ControllerBase
+    public class LeapController : ControllerBase
     {
     }
 }
